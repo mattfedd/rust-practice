@@ -1,7 +1,34 @@
 
+
+
+// example, 3 dimensions
+// z = ax + by + c hyperplane
+// - if above = true
+// - if below = false
+
+// weights: [a, b, c]
+
+// classifying inputs: [x, y, z] -> bool
+// training inputs: [x, y, z, bool]
+
+// perceptron stores: internal [a, b, c] that it modifies with each training input
+
+// perceptron takes in x y z and has its own internal hyperplane that its comparing to
+// aka
+// perceptron has a b c guesses
+// perceptron does z = ax + by + c using the input x and y (not input z)
+// perceptron compares that z against input z -> above/below for classification
+
+// aka
+// input: [x y z]
+// weights: [a b c]
+// [x y z 1] dot [a b 0 c] -> answer
+// or [x y 1] dot [a b c] -> answer
+// if answer < z then true
+// else false
+
 pub struct Perceptron {
     weights: Vec<f32>,
-    bias: f32,
     learning_rate: f32,
 }
 
@@ -9,7 +36,6 @@ impl Perceptron {
     pub fn new(dimension: u8) -> Perceptron {
         Perceptron {
             weights: vec![0.0; dimension as usize],
-            bias: 0.0,
             learning_rate: 0.1,
         }
     }
@@ -26,8 +52,9 @@ impl Perceptron {
         &self.weights
     } 
 
+    // TODO: see if can remove
     pub fn get_bias(&self) -> &f32 {
-        &self.bias
+        &self.weights[&self.weights.len()-1]
     }
 
     pub fn train_single(&self, data_element: &Vec<f32>) {
@@ -62,11 +89,11 @@ mod test {
          // input data to be classified is [x, y]
          // perceptron weights are [a, b]
          // bias is c
-        let mut p = Perceptron::new(2);
+        let mut p = Perceptron::new(3);
         p.set_learning_rate(0.25);
-        assert_eq!(p.get_dimension(), 2);
+        assert_eq!(p.get_dimension(), 3);
         assert_eq!(p.get_bias(), &0.0);
-        assert_eq!(p.get_weights(), &vec![0.0, 0.0]);
+        assert_eq!(p.get_weights(), &vec![0.0, 0.0, 0.0]);
 
         let training_data1 = vec![1.0, 2.0, 0.0];
         // TODO: finish this up
