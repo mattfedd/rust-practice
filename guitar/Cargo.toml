@@ -1,0 +1,9 @@
+[package]
+name = "guitar"
+version = "0.1.0"
+authors = ["Matthew Feddersen <matthew.feddersen@steelseries.com>"]
+edition = "2018"
+
+[dependencies]
+hidapi= "0.5.2"
+itertools = "0.8.0"
