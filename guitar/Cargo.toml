@@ -7,3 +7,4 @@ edition = "2018"
 [dependencies]
 hidapi= "0.5.2"
 itertools = "0.8.0"
+serialport = "3.2.0"
